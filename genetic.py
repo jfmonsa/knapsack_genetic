@@ -83,28 +83,30 @@ def measure_execution_time(examples: List[dict]) -> List[float]:
 
 
 
-def generate_sequence(start, end, step):
-    sequence = []
-    for i in range(start, end+1, step):
-        avg = 50 // i
-        remainder = 50 % i
-        numbers = [avg + (1 if j < remainder else 0) for j in range(i)]
-        counts = list(range(1, i+1))
-        sequence.append([numbers, counts])
-    return sequence
-
-sequence = generate_sequence(100, 1000, 100)
-
 capacity = 50
 population_size = 20
 num_generations = 10
 mutation_rate = 0.05
 
-examplesEvo =  [
-    {'weights': sequence[i][0], 'values': sequence[i][1], 'capacity': capacity, 'population_size': population_size, 'num_generations': num_generations, 'mutation_rate': mutation_rate} for i in range(len(sequence))
-]
-
-execution_timesEvolutivo = measure_execution_time(examplesEvo)
-print(execution_timesEvolutivo)
 
 
+# Driver Code
+if __name__ == "__main__":
+    # examples
+    weights = [10, 20, 30]
+    values = [60, 100, 120]
+    capacity = 50
+    example = [{'weights': weights, 'values': values, 'capacity': capacity, 'population_size': population_size, 'num_generations': num_generations, 'mutation_rate': mutation_rate}]
+    print("Ej 1:", measure_execution_time(example))
+
+    weights = [2, 3, 4, 5]
+    values = [3, 4, 5, 6]
+    capacity = 5
+    example = [{'weights': weights, 'values': values, 'capacity': capacity, 'population_size': population_size, 'num_generations': num_generations, 'mutation_rate': mutation_rate}]
+    print("Ej 2:", measure_execution_time(example))
+
+    weights = [1, 2, 4, 5, 7, 8]
+    values = [2, 5, 6, 10, 13, 16]
+    capacity = 8
+    example = [{'weights': weights, 'values': values, 'capacity': capacity, 'population_size': population_size, 'num_generations': num_generations, 'mutation_rate': mutation_rate}]
+    print("Ej 3:", measure_execution_time(example))

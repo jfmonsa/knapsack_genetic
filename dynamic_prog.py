@@ -59,43 +59,27 @@ def measure_execution_time_knapsack(examples: List[dict]) -> List[float]:
     return [execution_times, max_value]
 
 
-capacity = 50
-
-def generate_sequence(start, end, step):
-    sequence = []
-    for i in range(start, end+1, step):
-        avg = 50 // i
-        remainder = 50 % i
-        numbers = [avg + (1 if j < remainder else 0) for j in range(i)]
-        counts = list(range(1, i+1))
-        sequence.append([numbers, counts])
-    return sequence
-
-sequence = generate_sequence(100, 1000, 100)
-
-examples =  [
-    {'weights': sequence[i][0], 'values': sequence[i][1], 'capacity': capacity} for i in range(len(sequence))
-]
-execution_times = measure_execution_time_knapsack(examples)
-print(execution_times)
 
 
 
 
-# # Driver Code
-# if __name__ == "__main__":
-#     # expmaple 1
-#     weights = [10, 20, 30]
-#     values = [60, 100, 120]
-#     capacity = 50
-#     print("Maximum value 1:", knapsack(weights, values, capacity))
+# Driver Code
+if __name__ == "__main__":
+    # examples
+    weights = [10, 20, 30]
+    values = [60, 100, 120]
+    capacity = 50
+    example = [{'weights': weights, 'values': values, 'capacity': capacity}]
+    print("Ej 1:", measure_execution_time_knapsack(example))
 
-#     weights = [2, 3, 4, 5]
-#     values = [3, 4, 5, 6]
-#     capacity = 5
-#     print("Maximum value 2:", knapsack(weights, values, capacity))
+    weights = [2, 3, 4, 5]
+    values = [3, 4, 5, 6]
+    capacity = 5
+    example = [{'weights': weights, 'values': values, 'capacity': capacity}]
+    print("Ej 2:", measure_execution_time_knapsack(example))
 
-#     weights = [1, 2, 4, 5, 7, 8]
-#     values = [2, 5, 6, 10, 13, 16]
-#     capacity = 8
-#     print("Maximum value 3:", knapsack(weights, values, capacity))
+    weights = [1, 2, 4, 5, 7, 8]
+    values = [2, 5, 6, 10, 13, 16]
+    capacity = 8
+    example = [{'weights': weights, 'values': values, 'capacity': capacity}]
+    print("Ej 3:", measure_execution_time_knapsack(example))

@@ -70,11 +70,11 @@ def measure_execution_time(examples: List[dict]) -> List[float]:
         mutation_rate = example['mutation_rate']
         
         start_time = time.time()
-        genetic_algorithm(weights, values, capacity, population_size, num_generations, mutation_rate)
+        total = genetic_algorithm(weights, values, capacity, population_size, num_generations, mutation_rate)
         end_time = time.time()
         
         execution_times.append((end_time - start_time) * 1000)
-    return execution_times
+    return [execution_times, total]
 
 # Dynamic programming solution
 def knapsack(weights: List[int], values: List[int], capacity: int) -> int:
@@ -126,11 +126,11 @@ def measure_execution_time_knapsack(examples: List[dict]) -> List[float]:
         capacity = example['capacity']
         
         start_time = time.time()
-        knapsack(weights, values, capacity)
+        total = knapsack(weights, values, capacity)
         end_time = time.time()
         
         execution_times.append((end_time - start_time) * 1000)
-    return execution_times
+    return [execution_times, total]
 
 capacity = 50
 population_size = 20
@@ -154,7 +154,7 @@ examplesDina =  [
     {'weights': sequence[i][0], 'values': sequence[i][1], 'capacity': capacity} for i in range(len(sequence))
 ]
 execution_timesDina = measure_execution_time_knapsack(examplesDina)
-# print(execution_timesDina)
+print(execution_timesDina)
 
 examplesEvo =  [
     {'weights': sequence[i][0], 'values': sequence[i][1], 'capacity': capacity, 'population_size': population_size, 'num_generations': num_generations, 'mutation_rate': mutation_rate} for i in range(len(sequence))
@@ -164,16 +164,18 @@ examplesEvo =  [
 # print(len(sequence[1][0]))
 
 execution_timesEvolutivo = measure_execution_time(examplesEvo)
-# print(execution_timesEvolutivo)
+print(execution_timesEvolutivo)
 
 
 x_values = [len(sequence[i][0]) for i in range(len(sequence))]
 
-plt.plot(x_values, execution_timesDina, label='Dinámico O(n*w)')
-plt.plot(x_values, execution_timesEvolutivo, label='Evolutivo O(P*G*O(n))')
+plt.plot(x_values, execution_timesDina[0], label='Dinámico O(n*w)')
+plt.plot(x_values, execution_timesEvolutivo[0], label='Evolutivo O(P*G*O(n))')
 plt.xlabel('Número de elementos para elegir')
 plt.ylabel('Tiempo de ejecución (ms)')
 plt.title('Comparación de tiempos de ejecución')
+plt.text(50, 30, f'Solución Dinámica: {int(execution_timesDina[1])}')
+plt.text(50, 25, f'Solución Genético: {int(execution_timesEvolutivo[1])}')
 plt.grid(True)
 plt.legend()
 plt.show()
