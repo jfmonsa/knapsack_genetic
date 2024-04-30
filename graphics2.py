@@ -4,7 +4,7 @@ import numpy as np
 import random
 from typing import List
 
-
+# Función de aptitud
 def fitness(individual: List[int], weights: List[int], values: List[int], capacity: int) -> int:
     total_value = 0
     total_weight = 0
@@ -59,6 +59,7 @@ def genetic_algorithm(weights: List[int], values: List[int], capacity: int, popu
     best_individual = max(population, key=lambda individual: fitness(individual, weights, values, capacity))
     return fitness(best_individual, weights, values, capacity)
 
+# Medir el tiempo de ejecución
 def measure_execution_time(examples: List[dict]) -> List[float]:
     execution_times = []
     for example in examples:
@@ -76,7 +77,7 @@ def measure_execution_time(examples: List[dict]) -> List[float]:
         execution_times.append((end_time - start_time) * 1000)
     return [execution_times, total]
 
-# Dynamic programming solution
+# solución dinámica
 def knapsack(weights: List[int], values: List[int], capacity: int) -> int:
     """
     A function to solve the 0/1 knapsack problem using dynamic programming.
@@ -117,7 +118,7 @@ def knapsack(weights: List[int], values: List[int], capacity: int) -> int:
     # The maximum value will be stored in the bottom-right cell of the table
     return dp[n][capacity]
 
-
+# Medir el tiempo de ejecución
 def measure_execution_time_knapsack(examples: List[dict]) -> List[float]:
     execution_times = []
     for example in examples:
@@ -132,7 +133,7 @@ def measure_execution_time_knapsack(examples: List[dict]) -> List[float]:
         execution_times.append((end_time - start_time) * 1000)
     return [execution_times, total]
 
-capacity = 50
+capacity = 200
 population_size = 20
 num_generations = 10
 mutation_rate = 0.05
@@ -141,20 +142,20 @@ mutation_rate = 0.05
 def generate_sequence(start, end, step):
     sequence = []
     for i in range(start, end+1, step):
-        avg = 50 // i
-        remainder = 50 % i
+        avg = capacity // i
+        remainder = capacity % i
         numbers = [avg + (1 if j < remainder else 0) for j in range(i)]
         counts = list(range(1, i+1))
         sequence.append([numbers, counts])
     return sequence
 
-sequence = generate_sequence(100, 1000, 100)
+sequence = generate_sequence(capacity, capacity+1000, 50)
 
 examplesDina =  [
     {'weights': sequence[i][0], 'values': sequence[i][1], 'capacity': capacity} for i in range(len(sequence))
 ]
 execution_timesDina = measure_execution_time_knapsack(examplesDina)
-print(execution_timesDina)
+# print(execution_timesDina)
 
 examplesEvo =  [
     {'weights': sequence[i][0], 'values': sequence[i][1], 'capacity': capacity, 'population_size': population_size, 'num_generations': num_generations, 'mutation_rate': mutation_rate} for i in range(len(sequence))
@@ -164,7 +165,7 @@ examplesEvo =  [
 # print(len(sequence[1][0]))
 
 execution_timesEvolutivo = measure_execution_time(examplesEvo)
-print(execution_timesEvolutivo)
+# print(execution_timesEvolutivo)
 
 
 x_values = [len(sequence[i][0]) for i in range(len(sequence))]

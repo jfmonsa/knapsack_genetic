@@ -90,12 +90,13 @@ mutation_rate = 0.05
 
 
 
-# Driver Code
+
 if __name__ == "__main__":
-    # examples
+    print("Algoritmo genético")
+    # ejemplos
     weights = [10, 20, 30]
     values = [60, 100, 120]
-    capacity = 50
+    capacity = 20000
     example = [{'weights': weights, 'values': values, 'capacity': capacity, 'population_size': population_size, 'num_generations': num_generations, 'mutation_rate': mutation_rate}]
     print("Ej 1:", measure_execution_time(example))
 
